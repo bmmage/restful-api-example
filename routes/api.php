@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,7 +10,15 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::name('unauthorized')->get('401', function () {
+    return response()->json(['error' => 'Unauthorized'],401);
+});
+Route::name('jwt.')->group(function () {
+    Route::name('authorize')->post('/authorize', '\App\Http\Controllers\JwtController@createAuthorizationToken');
+    Route::name('refresh')->post('/refresh', '\App\Http\Controllers\JwtController@createAuthorizationTokenFromRefresh');
+    Route::middleware('auth')
+        ->resource(
+            '/products',
+            '\App\Http\Controllers\ProductController')
+        ->only(['show','index','destroy','store','update']);
 });

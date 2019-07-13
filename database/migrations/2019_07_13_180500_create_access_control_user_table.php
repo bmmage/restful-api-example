@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductUser extends Migration
+class CreateAccessControlUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateProductUser extends Migration
      */
     public function up()
     {
-        Schema::create('product_user', function (Blueprint $table) {
+        Schema::create('access_control_user', function (Blueprint $table) {
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('product_id')->unsigned();
-            $table->softDeletes();
-            $table->timestamps();
-            $table->primary(['user_id', 'product_id']);
+            $table->bigInteger('access_control_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('access_control_id')->references('id')->on('access_controls');
         });
     }
 
@@ -31,6 +28,6 @@ class CreateProductUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_user');
+        Schema::dropIfExists('access_control_user');
     }
 }

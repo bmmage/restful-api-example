@@ -11,8 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(ProductTableSeeder::class);
-         $this->call(UsersTableSeeder::class);
-         $this->call(UserProductTableSeeder::class);
+        $this->call(AccessControlTableSeeder::class);
+        $this->call(ProductTableSeeder::class);
+        $userSeeder = resolve(UsersTableSeeder::class)->run();
+        $this->call(UserProductTableSeeder::class);
+        $this->command->getOutput()->writeln('USER LIST:' . PHP_EOL);
+        $this->command->getOutput()->writeln($userSeeder->createdUsers->pluck('email'));
+
     }
 }

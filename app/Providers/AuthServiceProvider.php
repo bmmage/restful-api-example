@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Str;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        foreach (config('access-controls') as $acl) {
+            $slugAcl = Str::slug($acl);
+            Gate::define($slugAcl, function ($user) use ($slugAcl) {
+                return $user->accessControls->where('slug', $slugAcl)->count();
+            });
+        }
     }
 }
