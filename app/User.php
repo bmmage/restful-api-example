@@ -32,10 +32,16 @@ class User extends Authenticatable implements JWTSubject
         'password', 'remember_token',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function products() {
         return $this->belongsToMany(Product::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function accessControls() {
         return $this->belongsToMany(AccessControls::class, 'access_control_user', 'user_id', 'access_control_id');
     }

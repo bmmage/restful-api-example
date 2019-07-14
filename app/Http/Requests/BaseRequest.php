@@ -26,10 +26,7 @@ class BaseRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'username' => 'required|exits:users,email',
-            'password' => 'required'
-        ];
+        return [];
     }
 
     protected function failedValidation(Validator $validator) {

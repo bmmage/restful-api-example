@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Product;
 use App\Transformers\ProductTransformer;
-use App\Http\Requests\Products\ProductUpdate as UpdateRequest;
-use App\Http\Requests\Products\ProductDelete as DestroyRequest;
-use App\Http\Requests\Products\ProductCreate as CreateRequest;
+use App\Http\Requests\UserProducts\UserProductIndex as IndexRequest;
+use App\Http\Requests\UserProducts\UserProductCreate as CreateRequest;
+use App\Http\Requests\UserProducts\UserProductDelete as DestroyRequest;
 
 /**
  * Get Product Information For a user.
@@ -17,43 +18,47 @@ use App\Http\Requests\Products\ProductCreate as CreateRequest;
 class UserProductController extends Controller
 {
     /**
+     * @param IndexRequest $request
+     * @param $userId
      * @return Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(IndexRequest $request, $userId)
     {
-        return response()->json($this->transform(Product::all()));
+        $products = Product::whereHas('users', function ($q) use ($userId) {
+            $q->whereId($userId);
+        })->get();
+        return response()->json($this->transform($products));
     }
 
     /**
      * @param CreateRequest $request
+     * @param $userId
      * @return Illuminate\Http\JsonResponse
      */
-    public function store(CreateRequest $request)
+    public function store(CreateRequest $request, $userId)
     {
-        $product = Product::create($request->all());
-        return response()->json($this->transform($product));
+        $user = User::findOrFail($userId);
+        $product = Product::whereId($request->product_id)
+            ->whereNotIn('id', $user->products->pluck('id'))
+            ->first();
+        $user->products()->attach($product->id ?? null);
+        $user->refresh();
+        return response()->json($this->transform($user->products));
     }
 
     /**
-     * Display the product
-     *
-     * @param $id - Product Id
-     * @return Illuminate\Http\JsonResponse
-     */
-    public function show($id)
-    {
-
-    }
-
-    /**
-     * Remove a product
+     * Remove a users products
      *
      * @param DestroyRequest $request
-     * @param $id - Product Id
-     * @return \Illuminate\Http\JsonResponse
+     * @param $userId
+     * @param $productId - to be deleted
+     * @return void
      */
-    public function destroy(DestroyRequest $request, $id)
+    public function destroy(DestroyRequest $request, $userId, $productId)
     {
+        $user = User::findOrFail($userId);
+        $user->products()->detach($productId);
+        return response()->json([],204);
     }
 
     /**

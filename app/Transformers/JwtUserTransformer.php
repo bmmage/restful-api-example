@@ -16,7 +16,6 @@ class JwtUserTransformer extends SimpleTransformer
     {
         return [
             'token' => $item->token,
-            'refresh' => $item->refresh,
             'first_name' => $item->first_name,
             'last_name' => $item->last_name,
             'full_name' => $item->first_name . ' ' . $item->last_name,

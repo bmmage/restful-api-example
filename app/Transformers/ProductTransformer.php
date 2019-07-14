@@ -20,7 +20,7 @@ class ProductTransformer extends SimpleTransformer
             'description' => $item->description,
             'price' => $item->price,
             'image_url' => $item->image_url,
-            'image_template' => $item->template_url,
+            'thumbnail_url' => $item->thumbnail_url,
         ];
     }
 }

@@ -20,4 +20,11 @@ class Product extends Model
         'description',
         'thumbnail_url',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users() {
+        return $this->belongsToMany(User::class);
+    }
 }
