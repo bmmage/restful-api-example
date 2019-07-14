@@ -101,13 +101,16 @@ class UserProductTest extends TestCase
                 'thumbnail_url',
             ]
         ]);
-        $response->assertJson([
+        $response->assertJsonFragment(
             [
+                'id' => $product->id,
                 'name' => $product->name,
                 'description' => $product->description,
                 'price' => $product->price,
+                'image_url' => $product->image_url,
+                'thumbnail_url' => $product->thumbnail_url
             ]
-        ]);
+        );
     }
 
     /**
@@ -146,6 +149,26 @@ class UserProductTest extends TestCase
             $this->authHeader($this->adminToken)
         );
         $response->assertStatus(200);
+        $response->assertJsonStructure([
+            '*' => [
+                'id',
+                'name',
+                'description',
+                'price',
+                'image_url',
+                'thumbnail_url',
+            ]
+        ]);
+        $response->assertJsonFragment(
+            [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'image_url' => $product->image_url,
+                'thumbnail_url' => $product->thumbnail_url
+            ]
+        );
     }
 
     /**

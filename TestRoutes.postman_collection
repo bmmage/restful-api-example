@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "aeeb53c3-1239-477c-8956-f6a08202406a",
+		"name": "TestRoutes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost/api/authorize",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "admin@user.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/api/authorize",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"authorize"
+					]
+				},
+				"description": "Generate a Jwt Token"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/api/user/1/products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "NEED TOKEN FROM AUTH CALL",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "product_id",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/api/user/1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"user",
+						"1",
+						"products"
+					]
+				},
+				"description": "Attach Product To User"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/api/products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2FwaVwvYXV0aG9yaXplIiwiaWF0IjoxNTYzMDY2NTI1LCJleHAiOjE1NjMwNzAxMjUsIm5iZiI6MTU2MzA2NjUyNSwianRpIjoiYVVsUllsZHNUVjJKTTlPVyIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.h_-50aXNMkdiVoArCM2gPP9WMTflEAsrl_BNjSeCijI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Greatest Mattress Ever!!",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "This is a test description",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "900",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/api/products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL2FwaVwvYXV0aG9yaXplIiwiaWF0IjoxNTYzMDY2NTI1LCJleHAiOjE1NjMwNzAxMjUsIm5iZiI6MTU2MzA2NjUyNSwianRpIjoiYVVsUllsZHNUVjJKTTlPVyIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.h_-50aXNMkdiVoArCM2gPP9WMTflEAsrl_BNjSeCijI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				},
+				"description": "Get a list of products"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/api/user/1/products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost/api/user/2/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"user",
+						"2",
+						"products"
+					]
+				},
+				"description": "Get a list of products"
+			},
+			"response": []
+		}
+	]
+}
