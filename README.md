@@ -7,7 +7,6 @@ run `cp .env.example .env`, then update `DB_*` variables to match your database.
 
 ```bash
 composer install
-mv .env.example .env
 php artisan migrate --seed
 php artisan jwt:secret
 ```
