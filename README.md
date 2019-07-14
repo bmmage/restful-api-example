@@ -1,6 +1,6 @@
 # Helix Sleep Code Challenge
 ## Setup
-All seeded users will be created with the same password which is `secret`. A list of user will be displayed in the terminal, 
+All seeded users will be created with the same password which is `secret`. A list of seeded user will be displayed in the terminal, 
 the last one listed is an admin user `admin@user.com`.
 
 run `cp .env.example .env`, then update `DB_*` variables to match your database.
