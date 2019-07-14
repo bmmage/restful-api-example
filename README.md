@@ -1,4 +1,4 @@
-# Helix Sleep Code Challenge
+# Restful api using Jwt Auth
 ## Setup
 All seeded users will be created with the same password which is `secret`. A list of seeded user will be displayed in the terminal, 
 the last one listed is an admin user `admin@user.com`.
